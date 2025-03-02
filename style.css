@@ -52,7 +52,7 @@ h1 {
 }
 
 .editor{
-    /* position: relative; */
+    position: relative;
     width:  100%;
     min-width: 500px;
     min-height: 150px;
@@ -61,7 +61,7 @@ h1 {
     color: #333;
     outline: none;
     padding: 20px;
-    /* margin: 20px 0 ; */
+    margin: 20px 0 ;
     border: 1px solid #ccc;
     font-size: 18px;
 }
@@ -87,7 +87,7 @@ h1 {
 }
 
 .editor i{
-    /* width: 25px; */
+    width: 25px;
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -97,7 +97,7 @@ h1 {
 .note-text {
     flex: 1;
     border: none;
-    outline: none; /* 🔥 Removes black border */
+    outline: none;
     font-size: 16px;
     padding: 5px;
 }
@@ -110,9 +110,17 @@ h1 {
 }
 
 .toolbar button {
-    background: white;
+    background: #444;
+    color: white;
+    padding: 8px 12px;
     border: none;
     padding: 10px;
     cursor: pointer;
     font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.toolbar button:hover {
+    background: #666;
 }

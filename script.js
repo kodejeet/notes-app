@@ -73,19 +73,18 @@ function addDeleteEvent() {
 
 function formatText(command) {
     document.execCommand(command, false, null);
+    console.log(`Applied: ${command}`); // Debugging log
 }
 
 
-document.addEventListener("keydown", event => {
-    if (event.key === "Enter") {
-        document.execCommand("insertLineBreak");
-        event.preventDefault();
-    }
-});
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".editor").forEach(editor => {
+        editor.setAttribute("contenteditable", "true");
+    });
+})
 
 
 showNotes();
-
 
 
 
