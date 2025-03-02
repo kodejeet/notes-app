@@ -1,61 +1,62 @@
-//  code to disable the delete icon from getting deleted while typing
-// document.addEventListener("DOMContentLoaded", function () {
-//     const editor = document.getElementById("editor");
-
-//     editor.addEventListener("input", function () {
-//         if (editor.innerHTML.trim() === "") {
-//             editor.innerHTML = '<i class="fa-solid fa-trash delete-icon"></i>';
-//         }
-//     });
-// });
-
 const textArea = document.querySelector(".txtArea");
 const createBtn = document.querySelector(".btn");
-let notes = document.querySelectorAll(".editor");
 
-// function showNotes(){
-//     textArea.innerHTML = localStorage.getItem("notes");
-// }
-// showNotes();
+
+
 
 function showNotes() {
     const savedNotes = localStorage.getItem("notes");
+
     if (savedNotes) {
         textArea.innerHTML = savedNotes;
         addDeleteEvent();
     }
 }
 
-function updateStorage(){
+function updateStorage() {
     localStorage.setItem("notes", textArea.innerHTML);
 }
 
-createBtn.addEventListener("click", ()=>{
-    let inputBox = document.createElement("p");
-    let icon = document.createElement("i");
-    inputBox.className = "editor";
-    inputBox.setAttribute("contenteditable", "true");
-    icon.className = "fa-regular fa-pen-to-square";
-    textArea.appendChild(inputBox).appendChild(icon);
+createBtn.addEventListener("click", () => {
 
-    updateStorage();
-    addDeleteEvent();
+    addNote();
 });
 
-// textArea.addEventListener("click", function(e){
-//     if(e.target.tagName === "icon"){
-//         e.target.parentElement.remove();
-//         updateStorage();
-//     }
-//     else if(e.target.tagName === "p"){
-//         notes = document.querySelectorAll(".editor");
-//         notes.forEach(nt =>{
-//             nt.onkeyup = function(){
-//                 updateStorage();
-//             }
-//         });
-//     }
-// })
+function addNote(text = "") {
+    let note = document.createElement("div");
+    note.className = "editor";
+
+    let inputBox = document.createElement("p");
+    inputBox.className = "note-text";
+    inputBox.setAttribute("contenteditable", "true");
+    inputBox.textContent = text;
+
+    let icon = document.createElement("i");
+    icon.className = "fa-solid fa-trash delete-icon";
+
+
+    icon.addEventListener("click", () => {
+        note.remove();
+        updateStorage();
+    });
+
+
+
+    inputBox.addEventListener("input", updateStorage);
+
+
+    inputBox.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+            document.execCommand("insertLineBreak");
+            event.preventDefault();
+        }
+    });
+
+    note.appendChild(inputBox);
+    note.appendChild(icon);
+    textArea.appendChild(note);
+    updateStorage();
+}
 
 function addDeleteEvent() {
     document.querySelectorAll(".editor i").forEach(icon => {
@@ -71,15 +72,10 @@ function addDeleteEvent() {
 }
 
 
-document.addEventListener("keydown", event => {
-    if(event.key === "Enter"){
-        document.execCommand("insertLineBreak");
-        event.preventDefault();
-    }
-})
+
 
 showNotes();
-localStorage.removeItem("notes");
+
 
 
 

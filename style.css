@@ -73,3 +73,11 @@
     right: 20px;
     cursor: pointer;
 }
+
+.note-text {
+    flex: 1;
+    border: none;
+    outline: none; /* 🔥 Removes black border */
+    font-size: 16px;
+    padding: 5px;
+}
