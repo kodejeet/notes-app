@@ -13,6 +13,15 @@ const textArea = document.querySelector(".txtArea");
 const createBtn = document.querySelector(".btn");
 let notes = document.querySelectorAll(".editor");
 
+function showNotes(){
+    textArea.innerHTML = localStorage.getItem("notes");
+}
+showNotes();
+
+function updateStorage(){
+    localStorage.setItem("notes", textArea.innerHTML);
+}
+
 createBtn.addEventListener("click", ()=>{
     let inputBox = document.createElement("p");
     let icon = document.createElement("i");
@@ -25,5 +34,24 @@ createBtn.addEventListener("click", ()=>{
 textArea.addEventListener("click", function(e){
     if(e.target.tagName === "icon"){
         e.target.parentElement.remove();
+        updateStorage();
+    }
+    else if(e.target.tagName === "p"){
+        notes = document.querySelectorAll(".editor");
+        notes.forEach(nt =>{
+            nt.onkeyup = function(){
+                updateStorage();
+            }
+        });
     }
 })
+
+document.addEventListener("keydown", event => {
+    if(event.key === "Enter"){
+        document.execCommand("insertLineBreak");
+        event.preventDefault();
+    }
+})
+
+
+
