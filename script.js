@@ -83,8 +83,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })
 
+function formatText(command) {
+    document.execCommand(command, false, null);
+}
+
+
 
 showNotes();
+// localStorage.removeItem("notes");
+
+
 
 
 
