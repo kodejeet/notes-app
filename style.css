@@ -64,6 +64,9 @@ h1 {
     margin: 20px 0 ;
     border: 1px solid #ccc;
     font-size: 18px;
+    text-align: left;  
+    display: block; 
+    overflow-wrap: break-word;
 }
 
 .container button {

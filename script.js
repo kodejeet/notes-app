@@ -1,12 +1,8 @@
 const textArea = document.querySelector(".txtArea");
 const createBtn = document.querySelector(".btn");
 
-
-
-
 function showNotes() {
     const savedNotes = localStorage.getItem("notes");
-
     if (savedNotes) {
         textArea.innerHTML = savedNotes;
         addDeleteEvent();
@@ -18,32 +14,28 @@ function updateStorage() {
 }
 
 createBtn.addEventListener("click", () => {
-
     addNote();
 });
 
 function addNote(text = "") {
     let note = document.createElement("div");
     note.className = "editor";
+    note.setAttribute("contenteditable", "true");
 
     let inputBox = document.createElement("p");
     inputBox.className = "note-text";
     inputBox.setAttribute("contenteditable", "true");
-    inputBox.textContent = text;
+    inputBox.innerHTML = text;
 
     let icon = document.createElement("i");
     icon.className = "fa-solid fa-trash delete-icon";
-
 
     icon.addEventListener("click", () => {
         note.remove();
         updateStorage();
     });
 
-
-
     inputBox.addEventListener("input", updateStorage);
-
 
     inputBox.addEventListener("keydown", event => {
         if (event.key === "Enter") {
@@ -73,7 +65,6 @@ function addDeleteEvent() {
 
 function formatText(command) {
     document.execCommand(command, false, null);
-    console.log(`Applied: ${command}`); // Debugging log
 }
 
 
@@ -81,19 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".editor").forEach(editor => {
         editor.setAttribute("contenteditable", "true");
     });
-})
-
-function formatText(command) {
-    document.execCommand(command, false, null);
-}
-
-
+});
 
 showNotes();
-// localStorage.removeItem("notes");
-
-
-
-
-
-
